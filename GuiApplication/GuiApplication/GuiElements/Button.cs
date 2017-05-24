@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace GuiApplication.GuiElements {
     class Button: IGuiElement {
@@ -16,16 +17,16 @@ namespace GuiApplication.GuiElements {
         public Color Color { get; private set; }
         public Color OnOverColor { get; private set; }
         public Color OnClickColor { get; private set; }
-        public Action OnClickAction { get; set; }
+        public GameStates StateToGo { get; set; }
 
-        public Button(string label, Vector2 position, Vector2 widthHeight, Color color, Color onOver, Color onClick, Action onClickAction) {
+        public Button(string label, Vector2 position, Vector2 widthHeight, Color color, Color onOver, Color onClick, GameStates stateToGo) {
             Label = label;
             Position = position;
             WidthHeight = widthHeight;
             Color = color;
             OnOverColor = onOver;
             OnClickColor = onClick;
-            OnClickAction = onClickAction;
+            StateToGo = stateToGo;
         }
         public void Accept(IVisitor visitor) {
             visitor.Visit(this);
@@ -50,21 +51,17 @@ namespace GuiApplication.GuiElements {
         }
 
         public void Update(SpriteBatch spriteBatch) {
-            Color newColor = IsMouseOverButton() ? OnOverColor : Color;
+            Color newColor;
 
-            spriteBatch.Begin();
-            Texture2D rect = new Texture2D(spriteBatch.GraphicsDevice, (int)WidthHeight.X, (int)WidthHeight.Y);
-
-            Color[] colorData = new Color[rect.Width * rect.Height];
-
-            for (int i = 0; i < rect.Height * rect.Width; i++) {
-                colorData[i] = newColor;
+            if (IsMouseOverButton()) {
+                newColor = OnOverColor;
+                if (Game1.previousState.LeftButton == ButtonState.Released && Game1.mouseState.LeftButton == ButtonState.Pressed) {
+                    Game1.states = StateToGo;
+                    newColor = OnClickColor;
+                }
             }
-
-            rect.SetData(colorData);
-            spriteBatch.Draw(rect, new Rectangle((int)Position.X, (int)Position.Y, (int)WidthHeight.X, (int)WidthHeight.Y), newColor);
-            ScaleTextToButton(rect, spriteBatch);
-            spriteBatch.End();
+            else
+                newColor = Color;
         }
 
         private void ScaleTextToButton(Texture2D button, SpriteBatch spriteBatch) {

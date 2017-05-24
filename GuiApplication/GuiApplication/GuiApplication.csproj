@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GameStates.cs" />
     <Compile Include="GuiElements\Button.cs" />
     <Compile Include="GuiElements\GuiElementCollection.cs" />
     <Compile Include="GuiElements\IGuiElement.cs" />

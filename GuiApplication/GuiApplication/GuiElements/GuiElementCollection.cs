@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GuiApplication.GuiElements {
     class GuiElementCollection {
 
-        public List<IGuiElement> Elements { get; private set; } = new List<IGuiElement>();
+        public List<IGuiElement> Elements { get; private set; }
 
         public GuiElementCollection(List<IGuiElement> elements) {
             Elements = elements;
