@@ -1,4 +1,6 @@
-﻿using GuiApplication.GuiElements;
+﻿using GuiApplication.Adapters;
+using GuiApplication.Factories;
+using GuiApplication.GuiElements;
 using GuiApplication.Iterators;
 using GuiApplication.Visitors;
 using Microsoft.Xna.Framework;
@@ -31,6 +33,9 @@ namespace GuiApplication {
         private IIterator labelWindowIterator;
         private IIterator inputfieldIterator;
 
+        private IAdapter adapter;
+        private IWindowFactory windowFactory;
+
         public static GameStates states;
 
         public Game1() {
@@ -38,6 +43,7 @@ namespace GuiApplication {
             Content.RootDirectory = "Content";
             mouseState = Mouse.GetState();
             keyboardState = Keyboard.GetState();
+            windowFactory = new WindowFactory();
         }
 
         /// <summary>
@@ -52,28 +58,13 @@ namespace GuiApplication {
             base.Initialize();
             this.IsMouseVisible = true;
 
-            List<IGuiElement> mainWindowElements = new List<IGuiElement> {
-                new Button("Label window", new Vector2(100, 100), new Vector2(100, 50), Color.Pink, Color.Blue, Color.Red, GameStates.LabelWindow),
-                new Button("Input window", new Vector2(300, 100), new Vector2(100, 50), Color.Pink, Color.Blue, Color.Red, GameStates.InputFieldWindow)
-            };
-
-            List<IGuiElement> labelWindowElements = new List<IGuiElement> {
-                new Label("I am a label :)", new Vector2(10, 10), Color.Black),
-                new Button("Back to main window", new Vector2(100, 100), new Vector2(100, 50), Color.Pink, Color.Blue, Color.Red, GameStates.MainWindow)
-            };
-
-            List<IGuiElement> inputfieldElements = new List<IGuiElement> {
-                new InputField(new Vector2(10, 10), 100, new List<char>{ 'a', 'b', 'c' }),
-                new Button("Back to main window", new Vector2(100, 100), new Vector2(100, 50), Color.Pink, Color.Blue, Color.Red, GameStates.MainWindow)
-            };
-
-            mainWindowCollection = new GuiElementCollection(mainWindowElements);
+            mainWindowCollection = windowFactory.CreateMainWindowCollection();
             mainWindowIterator = mainWindowCollection.Iterator();
 
-            labelWindowCollection = new GuiElementCollection(labelWindowElements);
+            labelWindowCollection = windowFactory.CreateLabelWindowCollection();
             labelWindowIterator = labelWindowCollection.Iterator();
 
-            inputfieldWindowCollection = new GuiElementCollection(inputfieldElements);
+            inputfieldWindowCollection = windowFactory.CreateInputFieldWindowCollection();
             inputfieldIterator = inputfieldWindowCollection.Iterator();
 
             states = GameStates.MainWindow;
@@ -88,8 +79,10 @@ namespace GuiApplication {
             font = Content.Load<SpriteFont>("default");
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            drawVisitor = new DrawVisitor(spriteBatch);
-            updateVisitor = new UpdateVisitor(spriteBatch);
+            adapter = new MonogameAdapter(spriteBatch);
+
+            drawVisitor = new DrawVisitor(adapter);
+            updateVisitor = new UpdateVisitor(adapter);
 
             // TODO: use this.Content to load your game content here
         }

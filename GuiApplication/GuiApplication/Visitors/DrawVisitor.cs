@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using GuiApplication.GuiElements;
 using Microsoft.Xna.Framework.Graphics;
+using GuiApplication.Adapters;
 
 namespace GuiApplication.Visitors {
     class DrawVisitor: IVisitor {
 
-        public SpriteBatch SpriteBatch { get; private set; }
-
-        public DrawVisitor(SpriteBatch spriteBatch) {
-            SpriteBatch = spriteBatch;
+        private IAdapter adapter;
+        public DrawVisitor(IAdapter adapter) {
+            this.adapter = adapter;
         }
         public void Visit(IGuiElement guiElement) {
-            guiElement.Draw(SpriteBatch);
+            guiElement.Draw(adapter);
         }
     }
 }

@@ -41,6 +41,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Adapters\IAdapter.cs" />
+    <Compile Include="Adapters\JavaFxAdapter.cs" />
+    <Compile Include="Adapters\MonogameAdapter.cs" />
+    <Compile Include="Factories\IWindowFactory.cs" />
+    <Compile Include="Factories\WindowFactory.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameStates.cs" />
     <Compile Include="GuiElements\Button.cs" />
@@ -70,6 +75,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GuiApplication.Visitors;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using GuiApplication.Adapters;
 
 namespace GuiApplication.GuiElements {
     class Label: IGuiElement {
@@ -23,12 +24,10 @@ namespace GuiApplication.GuiElements {
             visitor.Visit(this);
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Begin();
-            spriteBatch.DrawString(Game1.font, Text, Position, Color);
-            spriteBatch.End();
+        public void Draw(IAdapter adapter) {
+            adapter.Draw(this);
         }
 
-        public void Update(SpriteBatch spriteBatch) {}
+        public void Update(IAdapter adapter) {}
     }
 }
