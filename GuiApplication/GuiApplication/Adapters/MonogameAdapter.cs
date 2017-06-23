@@ -7,6 +7,7 @@ using GuiApplication.GuiElements;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using GuiApplication.Decorators;
 
 namespace GuiApplication.Adapters {
     class MonogameAdapter: IAdapter {
@@ -17,13 +18,13 @@ namespace GuiApplication.Adapters {
             this.spriteBatch = spriteBatch;
             this.counter = 0;
         }
-        public void Draw(Label label) {
+        public void Draw(LabelDecorator label) {
             spriteBatch.Begin();
-            spriteBatch.DrawString(Game1.font, label.Text, label.Position, label.Color);
+            spriteBatch.DrawString(Game1.font, label.Text, label.GetPosition(), label.Color);
             spriteBatch.End();
         }
 
-        public void Draw(Button button) {
+        public void Draw(ClickableDecorator button) {
             spriteBatch.Begin();
             Texture2D rect = new Texture2D(spriteBatch.GraphicsDevice, (int)button.WidthHeight.X, (int)button.WidthHeight.Y);
 
@@ -35,27 +36,11 @@ namespace GuiApplication.Adapters {
 
             rect.SetData(colorData);
 
-            spriteBatch.Draw(rect, new Rectangle((int)button.Position.X, (int)button.Position.Y, (int)button.WidthHeight.X, (int)button.WidthHeight.Y), button.Color);
-
-            ScaleTextToButton(rect, button, spriteBatch);
+            spriteBatch.Draw(rect, new Rectangle((int)button.GetPosition().X, (int)button.GetPosition().Y, (int)button.WidthHeight.X, (int)button.WidthHeight.Y), button.Color);
             spriteBatch.End();
         }
 
-        private void ScaleTextToButton(Texture2D rect, Button button, SpriteBatch spriteBatch) {
-            Vector2 size = Game1.font.MeasureString(button.Label);
-
-            float xScale = (rect.Width / size.X);
-            float yScale = (rect.Height / size.Y);
-
-            float scale = Math.Min(xScale, yScale);
-
-            Vector2 stringDimensions = new Vector2((int)Math.Round(size.X * scale), (int)Math.Round(size.Y * scale));
-
-            Vector2 stringPosition = new Vector2(button.Position.X + (rect.Width / 2) - (stringDimensions.X / 2), button.Position.Y + (rect.Height / 2) - (stringDimensions.Y / 2));
-            spriteBatch.DrawString(Game1.font, button.Label, stringPosition, Color.Black, 0.0f, new Vector2(), scale, new SpriteEffects(), 0.0f);
-        }
-
-        public void Draw(InputField inputField) {
+        public void Draw(InputDecorator inputField) {
             spriteBatch.Begin();
             Texture2D rect = new Texture2D(spriteBatch.GraphicsDevice, inputField.Width, 20);
             Color[] colorData = new Color[rect.Width * rect.Height];
@@ -66,8 +51,8 @@ namespace GuiApplication.Adapters {
 
             rect.SetData(colorData);
 
-            spriteBatch.Draw(rect, new Rectangle((int)inputField.Position.X, (int)inputField.Position.Y, rect.Width, rect.Height), Color.White);
-            spriteBatch.DrawString(Game1.font, CharsToString(inputField.Content), inputField.Position, Color.Black);
+            spriteBatch.Draw(rect, new Rectangle((int)inputField.GetPosition().X, (int)inputField.GetPosition().Y, rect.Width, rect.Height), Color.White);
+            spriteBatch.DrawString(Game1.font, CharsToString(inputField.Content), inputField.GetPosition(), Color.Black);
             spriteBatch.End();
         }
 
@@ -79,11 +64,7 @@ namespace GuiApplication.Adapters {
             return resultString;
         }
 
-        public void Update(Label label) {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Button button) {
+        public void Update(ClickableDecorator button) {
             if (IsMouseOver(button)) {
                 if (Game1.previousState.LeftButton == ButtonState.Released && Game1.mouseState.LeftButton == ButtonState.Pressed) {
                     Game1.states = button.StateToGo;
@@ -91,18 +72,18 @@ namespace GuiApplication.Adapters {
             }
         }
 
-        private bool IsMouseOver(Button button) {
-            int xMinBoundary = (int)button.Position.X;
-            int xMaxBoundary = (int)button.Position.X + (int)button.WidthHeight.X;
-            int yMinBoundary = (int)button.Position.Y;
-            int yMaxBoundary = (int)button.Position.Y + (int)button.WidthHeight.Y;
+        private bool IsMouseOver(ClickableDecorator button) {
+            int xMinBoundary = (int)button.GetPosition().X;
+            int xMaxBoundary = (int)button.GetPosition().X + (int)button.WidthHeight.X;
+            int yMinBoundary = (int)button.GetPosition().Y;
+            int yMaxBoundary = (int)button.GetPosition().Y + (int)button.WidthHeight.Y;
 
             return (Game1.mousePosition.X > xMinBoundary && Game1.mousePosition.X < xMaxBoundary
                     && Game1.mousePosition.Y > yMinBoundary && Game1.mousePosition.Y < yMaxBoundary);
 
         }
 
-        public void Update(InputField inputField) {
+        public void Update(InputDecorator inputField) {
             counter++;
             Keys[] pressedKeys = Game1.keyboardState.GetPressedKeys();
             if (counter > 3) {

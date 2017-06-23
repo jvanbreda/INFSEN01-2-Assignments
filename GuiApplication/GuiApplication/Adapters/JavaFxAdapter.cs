@@ -3,31 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GuiApplication.Decorators;
 using GuiApplication.GuiElements;
 
 namespace GuiApplication.Adapters {
     class JavaFxAdapter: IAdapter {
-        public void Draw(Label label) {
+        public void Draw(LabelDecorator label) {
             throw new NotImplementedException();
         }
 
-        public void Draw(Button button) {
+        public void Draw(ClickableDecorator button) {
             throw new NotImplementedException();
         }
 
-        public void Draw(InputField inputField) {
+        public void Draw(InputDecorator inputField) {
             throw new NotImplementedException();
         }
 
-        public void Update(Label label) {
+        public void Update(ClickableDecorator button) {
             throw new NotImplementedException();
         }
 
-        public void Update(Button button) {
-            throw new NotImplementedException();
-        }
-
-        public void Update(InputField inputField) {
+        public void Update(InputDecorator inputField) {
             throw new NotImplementedException();
         }
     }
