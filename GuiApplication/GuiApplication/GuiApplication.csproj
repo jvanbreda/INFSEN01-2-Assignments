@@ -44,6 +44,8 @@
     <Compile Include="Adapters\DrawAdapters\IDrawAdapter.cs" />
     <Compile Include="Adapters\DrawAdapters\JavaFxAdapter.cs" />
     <Compile Include="Adapters\DrawAdapters\MonogameAdapter.cs" />
+    <Compile Include="Adapters\InputAdapters\IInputAdapter.cs" />
+    <Compile Include="Adapters\InputAdapters\InputAdapter.cs" />
     <Compile Include="Decorators\ClickableDecorator.cs" />
     <Compile Include="Decorators\GuiElementDecorator.cs" />
     <Compile Include="Decorators\InputDecorator.cs" />

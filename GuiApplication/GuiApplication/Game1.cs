@@ -1,5 +1,5 @@
 ﻿using GuiApplication.Adapters;
-using GuiApplication.Adapters.InputAdapter;
+using GuiApplication.Adapters.InputAdapters;
 using GuiApplication.Factories;
 using GuiApplication.GuiElements;
 using GuiApplication.Iterators;
