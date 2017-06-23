@@ -41,9 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Adapters\IAdapter.cs" />
-    <Compile Include="Adapters\JavaFxAdapter.cs" />
-    <Compile Include="Adapters\MonogameAdapter.cs" />
+    <Compile Include="Adapters\DrawAdapters\IDrawAdapter.cs" />
+    <Compile Include="Adapters\DrawAdapters\JavaFxAdapter.cs" />
+    <Compile Include="Adapters\DrawAdapters\MonogameAdapter.cs" />
     <Compile Include="Decorators\ClickableDecorator.cs" />
     <Compile Include="Decorators\GuiElementDecorator.cs" />
     <Compile Include="Decorators\InputDecorator.cs" />

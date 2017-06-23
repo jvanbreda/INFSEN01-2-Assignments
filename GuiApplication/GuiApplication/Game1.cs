@@ -1,4 +1,5 @@
 ﻿using GuiApplication.Adapters;
+using GuiApplication.Adapters.InputAdapter;
 using GuiApplication.Factories;
 using GuiApplication.GuiElements;
 using GuiApplication.Iterators;
@@ -33,16 +34,19 @@ namespace GuiApplication {
         private IIterator labelWindowIterator;
         private IIterator inputfieldIterator;
 
-        private IAdapter adapter;
+        private IDrawAdapter drawAdapter;
         private IWindowFactory windowFactory;
+
+        private IInputAdapter inputAdapter;
 
         public static GameStates states;
 
         public Game1() {
+            inputAdapter = new InputAdapter();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            mouseState = Mouse.GetState();
-            keyboardState = Keyboard.GetState();
+            mouseState = inputAdapter.GetMouseState();
+            keyboardState = inputAdapter.GetKeyboardState();
             windowFactory = new WindowFactory();
         }
 
@@ -79,10 +83,10 @@ namespace GuiApplication {
             font = Content.Load<SpriteFont>("default");
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            adapter = new MonogameAdapter(spriteBatch);
+            drawAdapter = new MonogameAdapter(spriteBatch);
 
-            drawVisitor = new DrawVisitor(adapter);
-            updateVisitor = new UpdateVisitor(adapter);
+            drawVisitor = new DrawVisitor(drawAdapter);
+            updateVisitor = new UpdateVisitor(drawAdapter);
 
             // TODO: use this.Content to load your game content here
         }
@@ -106,10 +110,10 @@ namespace GuiApplication {
 
             // TODO: Add your update logic here
             previousState = mouseState;
-            mouseState = Mouse.GetState();
+            mouseState = inputAdapter.GetMouseState();
             mousePosition = new Vector2(mouseState.Position.X, mouseState.Position.Y);
 
-            keyboardState = Keyboard.GetState();
+            keyboardState = inputAdapter.GetKeyboardState();
 
             switch (states) {
                 case GameStates.MainWindow:

@@ -13,7 +13,7 @@ namespace GuiApplication.GuiElements {
 
         Vector2 GetPosition();
         void Accept(IVisitor visitor);
-        void Draw(IAdapter adapter);
-        void Update(IAdapter adapter);
+        void Draw(IDrawAdapter adapter);
+        void Update(IDrawAdapter adapter);
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GuiApplication.Adapters {
-    interface IAdapter {
+    interface IDrawAdapter {
 
         void Draw(LabelDecorator label);
         void Draw(ClickableDecorator button);

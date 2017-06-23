@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using GuiApplication.Decorators;
 
 namespace GuiApplication.Adapters {
-    class MonogameAdapter: IAdapter {
+    class MonogameAdapter: IDrawAdapter {
         private SpriteBatch spriteBatch;
         private int counter = 0;
 

@@ -23,7 +23,7 @@ namespace GuiApplication.Decorators {
             return Element.GetPosition();
         }
 
-        public abstract void Draw(IAdapter adapter);
-        public abstract void Update(IAdapter adapter);
+        public abstract void Draw(IDrawAdapter adapter);
+        public abstract void Update(IDrawAdapter adapter);
     }
 }

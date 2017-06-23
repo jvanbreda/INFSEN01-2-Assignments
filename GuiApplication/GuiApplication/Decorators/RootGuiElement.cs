@@ -21,8 +21,8 @@ namespace GuiApplication.Decorators {
             return Position;
         }
 
-        public void Draw(IAdapter adapter) {}
+        public void Draw(IDrawAdapter adapter) {}
 
-        public void Update(IAdapter adapter) {}
+        public void Update(IDrawAdapter adapter) {}
     }
 }

@@ -10,8 +10,8 @@ using GuiApplication.Adapters;
 namespace GuiApplication.Visitors {
     class UpdateVisitor: IVisitor {
 
-        private IAdapter adapter;
-        public UpdateVisitor(IAdapter adapter) {
+        private IDrawAdapter adapter;
+        public UpdateVisitor(IDrawAdapter adapter) {
             this.adapter = adapter;
         }
         public void Visit(IGuiElement guiElement) {

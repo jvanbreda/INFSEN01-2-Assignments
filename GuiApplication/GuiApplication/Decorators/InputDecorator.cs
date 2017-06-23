@@ -16,12 +16,12 @@ namespace GuiApplication.Decorators {
             Content = content;
         }
 
-        public override void Draw(IAdapter adapter) {
+        public override void Draw(IDrawAdapter adapter) {
             Element.Draw(adapter);
             adapter.Draw(this);
         }
 
-        public override void Update(IAdapter adapter) {
+        public override void Update(IDrawAdapter adapter) {
             Element.Update(adapter);
             adapter.Update(this);
         }

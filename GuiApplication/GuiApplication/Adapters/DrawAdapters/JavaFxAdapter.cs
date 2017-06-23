@@ -7,7 +7,7 @@ using GuiApplication.Decorators;
 using GuiApplication.GuiElements;
 
 namespace GuiApplication.Adapters {
-    class JavaFxAdapter: IAdapter {
+    class JavaFxAdapter: IDrawAdapter {
         public void Draw(LabelDecorator label) {
             throw new NotImplementedException();
         }
