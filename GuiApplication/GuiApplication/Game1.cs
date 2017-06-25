@@ -118,15 +118,15 @@ namespace GuiApplication {
             switch (states) {
                 case GameStates.MainWindow:
                     while (mainWindowIterator.HasNext())
-                        updateVisitor.Visit(mainWindowIterator.Next());
+                        mainWindowIterator.Next().Accept(updateVisitor);
                 break;
                 case GameStates.LabelWindow:
                     while (labelWindowIterator.HasNext())
-                        updateVisitor.Visit(labelWindowIterator.Next());
-                break;
+                        labelWindowIterator.Next().Accept(updateVisitor)
+;                break;
                 case GameStates.InputFieldWindow:
                     while (inputfieldIterator.HasNext())
-                        updateVisitor.Visit(inputfieldIterator.Next());
+                        inputfieldIterator.Next().Accept(updateVisitor);
                 break;
             }
 
@@ -143,16 +143,16 @@ namespace GuiApplication {
             // TODO: Add your drawing code here
             switch (states) {
                 case GameStates.MainWindow:
-                while (mainWindowIterator.HasNext())
-                    drawVisitor.Visit(mainWindowIterator.Next());
+                    while (mainWindowIterator.HasNext())
+                        mainWindowIterator.Next().Accept(drawVisitor);
                 break;
                 case GameStates.LabelWindow:
-                while (labelWindowIterator.HasNext())
-                    drawVisitor.Visit(labelWindowIterator.Next());
+                    while (labelWindowIterator.HasNext())
+                        labelWindowIterator.Next().Accept(drawVisitor);
                 break;
                 case GameStates.InputFieldWindow:
-                while (inputfieldIterator.HasNext())
-                    drawVisitor.Visit(inputfieldIterator.Next());
+                    while (inputfieldIterator.HasNext())
+                        inputfieldIterator.Next().Accept(drawVisitor);
                 break;
             }
 

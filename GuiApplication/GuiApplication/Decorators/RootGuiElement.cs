@@ -20,9 +20,5 @@ namespace GuiApplication.Decorators {
         public Vector2 GetPosition() {
             return Position;
         }
-
-        public void Draw(IDrawAdapter adapter) {}
-
-        public void Update(IDrawAdapter adapter) {}
     }
 }

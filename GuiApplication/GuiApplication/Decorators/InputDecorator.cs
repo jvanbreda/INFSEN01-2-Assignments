@@ -16,14 +16,9 @@ namespace GuiApplication.Decorators {
             Content = content;
         }
 
-        public override void Draw(IDrawAdapter adapter) {
-            Element.Draw(adapter);
-            adapter.Draw(this);
-        }
-
-        public override void Update(IDrawAdapter adapter) {
-            Element.Update(adapter);
-            adapter.Update(this);
+        public override void Accept(IVisitor visitor) {
+            Element.Accept(visitor);
+            visitor.Visit(this);
         }
     }
 }

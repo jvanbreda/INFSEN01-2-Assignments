@@ -15,15 +15,10 @@ namespace GuiApplication.Decorators {
         public GuiElementDecorator(IGuiElement element) {
             Element = element;
         }
-        public virtual void Accept(IVisitor visitor) {
-            visitor.Visit(Element);
-        }
+        public abstract void Accept(IVisitor visitor);
 
         public Vector2 GetPosition() {
             return Element.GetPosition();
         }
-
-        public abstract void Draw(IDrawAdapter adapter);
-        public abstract void Update(IDrawAdapter adapter);
     }
 }
