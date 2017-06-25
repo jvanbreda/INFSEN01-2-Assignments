@@ -88,9 +88,9 @@ namespace GuiApplication.Adapters {
             Keys[] pressedKeys = Game1.keyboardState.GetPressedKeys();
             if (counter > 3) {
                 if (pressedKeys.Length > 0)
-                    if (pressedKeys[0].ToString() == "Space")
+                    if (pressedKeys[0] == Keys.Space)
                         inputField.Content.Add(' ');
-                    else if (pressedKeys[0].ToString() == "Back") {
+                    else if (pressedKeys[0] == Keys.Back) {
                         if (inputField.Content.Count > 0)
                             inputField.Content.RemoveAt(inputField.Content.Count - 1);
                     }
